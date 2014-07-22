@@ -1,0 +1,8 @@
+{
+    "framework": "mocha+chai"
+    , "src_files": [
+         "./build/specs.js"
+    ]
+    ,"on_start": "./node_modules/.bin/gulp test"
+    , "launch_in_dev": ["Chrome","Firefox"]
+}
