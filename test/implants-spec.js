@@ -17,21 +17,21 @@ describe('Implants',function(){
     }
 
 
-    DFactory.inject = ['impl']
+    DFactory.inject = ['@impl']
     function DFactory(impl) {
         return {
             b: 'DFactoryPre -> ' + impl.b + ' -> DFactoryPost'
         }
 
     }
-    EFactory.inject = ['impl']
+    EFactory.inject = ['@impl']
     function EFactory(impl) {
         return {
             b: 'EFactoryPre -> ' + impl.b + ' -> EFactoryPost'
         }
 
     }
-    FFactory.inject = ['impl']
+    FFactory.inject = ['@impl']
     function FFactory(impl) {
         return {
             b: 'FFactoryPre -> ' + impl.b + ' -> FFactoryPost'
@@ -47,6 +47,24 @@ describe('Implants',function(){
     }
 
     var sut
+    describe('when resolving a value',function(){
+        var val
+        beforeEach(function(){
+            sut = Implants.create()
+        })
+        beforeEach(function(){
+            sut.value('val',val ={ dont: 'change'})
+        })
+        it('should resolve a copy of that value',function(){
+            return sut.resolve('val')
+                .then(function(it){
+                    it.dont.should.equal('change')
+                    it.dont = 'ever change'
+                    val.dont.should.equal('change')
+                })
+
+        })
+    })
     describe('when resolving a simple factory',function(){
         beforeEach(function(){
             sut = Implants.create()
@@ -109,6 +127,30 @@ describe('Implants',function(){
                 .then(function(instance){
                     return instance.b.should.equal('BFactory received a factory')
                 })
+        })
+
+    })
+    describe('when resolving an initializable component',function(){
+        beforeEach(function(){
+            sut = Implants.create()
+        })
+        beforeEach(function(){
+            function Greeter(){
+
+            }
+            Greeter.prototype.sayHello = function(lang) {
+                this.greeting = lang.hello
+            }
+            Greeter.initializable = 'sayHello'
+            sut.ctor('greeter',Greeter)
+            sut.value('lang',{
+                es: 'hola'
+            })
+        })
+
+        it('should invoke its initializing function',function(){
+            return sut.resolve('greeter')
+                .should.eventually.have.property('greeting','hola')
         })
 
     })

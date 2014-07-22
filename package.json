@@ -39,6 +39,7 @@
   "dependencies": {
     "gulp-jshint": "~1.7.1",
     "bluebird": "~2.2.2",
-    "toposort": "~0.2.10"
+    "toposort": "~0.2.10",
+    "clone": "~0.1.17"
   }
 }
