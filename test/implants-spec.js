@@ -138,13 +138,17 @@ describe('Implants',function(){
             function Greeter(){
 
             }
-            Greeter.prototype.sayHello = function(lang) {
+            function sayHello(lang){
                 this.greeting = lang.hello
             }
+
+            sayHello.inject = ['lang']
+            Greeter.prototype.sayHello = sayHello
+
             Greeter.initializable = 'sayHello'
             sut.ctor('greeter',Greeter)
             sut.value('lang',{
-                es: 'hola'
+                hello: 'hola'
             })
         })
 
