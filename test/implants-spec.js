@@ -99,6 +99,7 @@ describe('Implants',function(){
         beforeEach(function(){
             sut.factory('a',AFactory)
             sut.factory('b',BFactory)
+            sut.factory('d',DFactory)
             sut.decorate('b','d')
         })
         it('should return decorated instance',function(){
