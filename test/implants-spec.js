@@ -91,6 +91,22 @@ describe('Implants',function(){
         })
 
     })
+    describe('when resolving a factory with dynamic deps',function(){
+        beforeEach(function(){
+            sut = Implants.create()
+        })
+        beforeEach(function(){
+            sut.factory('dynamo',DynamoFactory)
+        })
+        it('should return instance with deps',function(){
+            return sut.resolve('dynamo',{
+                dynamicParam: 'foo'
+            }).then(function(instance){
+                return instance.dynamic.should.equal('foot')
+            })
+        })
+
+    })
     describe('when decorating a factory',function(){
         var decorators
         beforeEach(function(){
