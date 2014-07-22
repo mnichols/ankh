@@ -130,6 +130,36 @@ describe('Implants',function(){
         })
 
     })
+    describe('when starting with container having startables',function(){
+        beforeEach(function(){
+            sut = Implants.create()
+        })
+        beforeEach(function(){
+            function GFactory(){
+
+                return {
+                    started: false
+                    ,startemUp: function(){
+                        this.started = true
+                    }
+                }
+            }
+
+            GFactory.startable = 'startemUp'
+
+            sut.factory('g',GFactory)
+            sut.factory('a',AFactory)
+        })
+        beforeEach(function(){
+            return sut.start()
+        })
+
+        it('should invoke its startable function',function(){
+            return sut.resolve('g')
+                .should.eventually.have.property('started',true)
+        })
+
+    })
     describe('when resolving an initializable component',function(){
         beforeEach(function(){
             sut = Implants.create()
