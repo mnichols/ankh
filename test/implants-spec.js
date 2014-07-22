@@ -24,6 +24,27 @@ describe('Implants',function(){
         }
 
     }
+    EFactory.inject = ['impl']
+    function EFactory(impl) {
+        return {
+            b: 'EFactoryPre -> ' + impl.b + ' -> EFactoryPost'
+        }
+
+    }
+    FFactory.inject = ['impl']
+    function FFactory(impl) {
+        return {
+            b: 'FFactoryPre -> ' + impl.b + ' -> FFactoryPost'
+        }
+
+    }
+
+    DynamoFactory.inject = ['dynamicParam']
+    function DynamoFactory(dynamic){
+        return {
+            dynamic: dynamic
+        }
+    }
 
     var sut
     describe('when resolving a simple factory',function(){
@@ -102,7 +123,7 @@ describe('Implants',function(){
             return sut.resolve('dynamo',{
                 dynamicParam: 'foo'
             }).then(function(instance){
-                return instance.dynamic.should.equal('foot')
+                return instance.dynamic.should.equal('foo')
             })
         })
 
@@ -112,17 +133,44 @@ describe('Implants',function(){
         beforeEach(function(){
             sut = Implants.create()
         })
-        beforeEach(function(){
-            sut.factory('a',AFactory)
-            sut.factory('b',BFactory)
-            sut.factory('d',DFactory)
-            sut.decorate('b','d')
+        describe('given simple decoration',function(){
+            beforeEach(function(){
+                sut.factory('a',AFactory)
+                sut.factory('b',BFactory)
+                sut.factory('d',DFactory)
+                sut.decorate('b','d')
+            })
+            it('should return decorated instance',function(){
+                return sut.resolve('b')
+                    .then(function(instance){
+                        return instance.b.should.equal('DFactoryPre -> BFactory received a factory -> DFactoryPost')
+                    })
+            })
         })
-        it('should return decorated instance',function(){
-            return sut.resolve('b')
-                .then(function(instance){
-                    return instance.b.should.equal('DFactoryPre -> BFactory received a factory -> DFactoryPost')
-                })
+        describe('given deep decoration',function(){
+            beforeEach(function(){
+                sut.factory('a',AFactory)
+                sut.factory('b',BFactory)
+                sut.factory('d',DFactory)
+                sut.factory('e',EFactory)
+                sut.factory('f',FFactory)
+                sut.decorate('b','f')
+                sut.decorate('b','e')
+                sut.decorate('b','d')
+            })
+            it('should return decorated instance',function(){
+                return sut.resolve('b')
+                    .then(function(instance){
+                        return instance.b.should.equal('DFactoryPre -> ' +
+                                                       'EFactoryPre -> ' +
+                                                       'FFactoryPre -> ' +
+                                                       'BFactory received a factory -> ' +
+                                                       'FFactoryPost -> ' +
+                                                       'EFactoryPost -> ' +
+                                                       'DFactoryPost')
+                    })
+            })
+
         })
     })
 
