@@ -1,6 +1,7 @@
 LOG = export DEBUG=implants:*
 
-test:
+test: clean
+	./node_modules/.bin/gulp test
 	./node_modules/.bin/testem
 
 verbose:
@@ -10,7 +11,7 @@ silent:
 	LOG = unset DEBUG
 
 clean:
-	rm -rf specs.js
+	rm -rf build
 
 docs:
 	pip install Pygments

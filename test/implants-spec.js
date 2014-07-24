@@ -147,8 +147,8 @@ describe('Implants',function(){
 
             GFactory.startable = 'startemUp'
 
-            sut.factory('g',GFactory)
-            sut.factory('a',AFactory)
+            sut.factory('g',GFactory,{ lifestyle: 'singleton'})
+            sut.factory('a',AFactory, { lifestyle: 'singleton'})
         })
         beforeEach(function(){
             return sut.start()
@@ -156,7 +156,8 @@ describe('Implants',function(){
 
         it('should invoke its startable function',function(){
             return sut.resolve('g')
-                .should.eventually.have.property('started',true)
+                .should.eventually
+                .have.property('started',true)
         })
 
     })
@@ -184,7 +185,8 @@ describe('Implants',function(){
 
         it('should invoke its initializing function',function(){
             return sut.resolve('greeter')
-                .should.eventually.have.property('greeting','hola')
+                .should.eventually
+                .have.property('greeting','hola')
         })
 
     })
