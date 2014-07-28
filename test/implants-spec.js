@@ -130,6 +130,23 @@ describe('Implants',function(){
         })
 
     })
+    describe('when resolving an instance',function(){
+        var instance
+        beforeEach(function(){
+            sut  = Implants.create()
+        })
+        beforeEach(function(){
+            instance = { foo: 'bar'}
+            sut.instance('foo',instance)
+        })
+        beforeEach(function(){
+            instance.foo = 'baz'
+        })
+        it('should return that instance',function(){
+            return sut.resolve('foo')
+                .should.eventually.have.property('foo','baz')
+        })
+    })
     describe('when starting with container having startables',function(){
         beforeEach(function(){
             sut = Implants.create()
@@ -205,6 +222,54 @@ describe('Implants',function(){
             })
         })
 
+    })
+    describe('when using custom activator having deps',function(){
+        beforeEach(function(){
+            sut = Implants.create()
+        })
+        beforeEach(function(){
+            sut.value('bypass','BYPASSED')
+            function CustomActivator(bypass){
+                this.inner = bypass
+            }
+            CustomActivator.prototype.activate = function(){
+                return 'I activate using factory named ' + this.inner
+            }
+            CustomActivator.inject = ['bypass']
+            sut.kernel.addActivator('customActivator',CustomActivator)
+
+            sut.ctor('cust',function CustComponent(){
+                throw new Error('should not have been created!')
+            },{ activator: 'customActivator'})
+        })
+        it('should activate using those deps',function(){
+            return sut.resolve('cust').should.eventually
+                .equal('I activate using factory named BYPASSED')
+        })
+    })
+    describe('when using custom resolver having deps',function(){
+        beforeEach(function(){
+            sut = Implants.create()
+        })
+        beforeEach(function(){
+            sut.value('bypass','BYPASSED')
+            function CustomResolver(bypass){
+                this.inner = bypass
+            }
+            CustomResolver.prototype.resolve = function(){
+                return 'I resolve using factory named ' + this.inner
+            }
+            CustomResolver.inject = ['bypass']
+            sut.kernel.addResolver('customResolver',CustomResolver)
+
+            sut.ctor('cust',function CustComponent(){
+                throw new Error('should not have been created!')
+            },{ resolver: 'customResolver'})
+        })
+        it('should resolve those deps',function(){
+            return sut.resolve('cust').should.eventually
+                .equal('I resolve using factory named BYPASSED')
+        })
     })
     describe('when decorating a factory',function(){
         var decorators
