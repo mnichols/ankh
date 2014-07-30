@@ -34,7 +34,8 @@
     "chai": "~1.9.1",
     "chai-as-promised": "~4.1.1",
     "rimraf": "~2.2.8",
-    "gulp-rimraf": "~0.1.0"
+    "gulp-rimraf": "~0.1.0",
+    "groc": "~0.6.3"
   },
   "dependencies": {
     "gulp-jshint": "~1.7.1",
