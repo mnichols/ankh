@@ -67,6 +67,23 @@ describe('Registrations',function(){
                 .should.eventually.eql(['mee','bar','foo'])
 
         })
+        it('should return models having `startable` attribute',function(){
+            function NotStartable(){}
+            function Startable(){}
+            function StartableToo(){}
+            Startable.startable = 'start'
+            StartableToo.startable = 'start'
+            sut.put(new ComponentModel('not',NotStartable))
+            sut.put(new ComponentModel('startable',Startable))
+            sut.put(new ComponentModel('startable2',StartableToo))
+            var starts = sut.startables()
+                .map(function(comp){
+                    return comp.key
+                })
+            starts.length.should.equal(2)
+            starts.should.contain('startable')
+            starts.should.contain('startable2')
+        })
     })
 
 })
