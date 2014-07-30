@@ -1,6 +1,6 @@
 {
   "name": "implants",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Dependency Injection for JS",
   "main": "index.js",
   "directories": {
