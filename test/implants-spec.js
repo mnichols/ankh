@@ -1,7 +1,7 @@
 'use strict';
 
-describe('Implants',function(){
-    var Implants = require('..')
+describe('Ankh',function(){
+    var Ankh = require('..')
 
     function AFactory() {
         return {
@@ -50,7 +50,7 @@ describe('Implants',function(){
     describe('when resolving a value',function(){
         var val
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         beforeEach(function(){
             sut.value('val',val ={ dont: 'change'})
@@ -67,7 +67,7 @@ describe('Implants',function(){
     })
     describe('when resolving a simple factory',function(){
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         describe('given singleton',function(){
             beforeEach(function(){
@@ -116,7 +116,7 @@ describe('Implants',function(){
     })
     describe('when resolving a factory with deps',function(){
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         beforeEach(function(){
             sut.factory('a',AFactory)
@@ -133,7 +133,7 @@ describe('Implants',function(){
     describe('when resolving an instance',function(){
         var instance
         beforeEach(function(){
-            sut  = Implants.create()
+            sut  = Ankh.create()
         })
         beforeEach(function(){
             instance = { foo: 'bar'}
@@ -149,7 +149,7 @@ describe('Implants',function(){
     })
     describe('when starting with container having startables',function(){
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         beforeEach(function(){
             function GFactory(){
@@ -180,7 +180,7 @@ describe('Implants',function(){
     })
     describe('when resolving an initializable component',function(){
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         beforeEach(function(){
             function Greeter(){
@@ -209,7 +209,7 @@ describe('Implants',function(){
     })
     describe('when resolving a factory with dynamic deps',function(){
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         beforeEach(function(){
             sut.factory('dynamo',DynamoFactory)
@@ -225,7 +225,7 @@ describe('Implants',function(){
     })
     describe('when using custom activator having deps',function(){
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         beforeEach(function(){
             sut.value('bypass','BYPASSED')
@@ -249,7 +249,7 @@ describe('Implants',function(){
     })
     describe('when using custom resolver having deps',function(){
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         beforeEach(function(){
             sut.value('bypass','BYPASSED')
@@ -274,7 +274,7 @@ describe('Implants',function(){
     describe('when decorating a factory',function(){
         var decorators
         beforeEach(function(){
-            sut = Implants.create()
+            sut = Ankh.create()
         })
         describe('given simple decoration',function(){
             beforeEach(function(){

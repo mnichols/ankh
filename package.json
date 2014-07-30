@@ -1,5 +1,5 @@
 {
-  "name": "implants",
+  "name": "ankh",
   "version": "0.0.2",
   "description": "Dependency Injection for JS",
   "main": "index.js",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mnichols/implants.git"
+    "url": "https://github.com/mnichols/ankh.git"
   },
   "author": "Mike Nichols <nichols.mike.s@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mnichols/implants/issues"
+    "url": "https://github.com/mnichols/ankh/issues"
   },
   "devDependencies": {
     "browserify": "~4.2.3",
