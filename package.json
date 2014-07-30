@@ -1,13 +1,13 @@
 {
   "name": "ankh",
-  "version": "0.0.3",
+  "version": "0.0.31",
   "description": "Dependency Injection for JS",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/.bin/testem"
+    "test": "make test"
   },
   "repository": {
     "type": "git",

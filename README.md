@@ -90,9 +90,33 @@ ankh.factory('myDecoratingService',MyDecoratingService)
 ankh.decorate('myTargetService','myDecoratingService')
 ```
 
+#### Resolve a service
+
+```js
+
+MyService.inject = ['dep1','dep2']
+function MyService(dep1,dep2) {
+    
+}
+
+//register
+ankh.value('dep1','FOO')
+ankh.value('dep2','BAR')
+ankh.ctor('svc',MyService)
+
+//resolve
+ankh.resolve('svc',{ dep2: 'BAZ'}) // -> use 'BAZ' for dep2 value
+ankh.resolve('svc') // -> use 'BAR' for dep2 value
+```
+
 ## Docs
 
 Run `make docs` to see pretty documentation
+
+## Tests
+
+`ankh` uses [testem](https://github.com/airportyh/testem).
+You can `make test` to runem.
 
 
 ### CHANGELOG
