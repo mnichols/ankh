@@ -12,7 +12,16 @@ var gulp = require('gulp')
     ;
 
 
-gulp.task('default',['test'])
+gulp.task('default',['build'])
+gulp.task('build',['test'],function(){
+    var b = browserify({
+        entries: ['./lib']
+    })
+    b.require('./lib',{expose: 'ioc'})
+    return b.bundle()
+        .pipe(vinyl('bundle.js'))
+        .pipe(gulp.dest('./build'))
+})
 
 
 // Clean dist directory

@@ -1,0 +1,36 @@
+<html>
+    <body>
+        <div class="app">
+        </div>
+        <script src="../../build/bundle.js"></script>
+        <script>
+            var IoC = require('ioc')
+            var ioc = new IoC()
+
+            function IWriteHello(lang) {
+                return function hello() {
+                    document.querySelector('.app').innerHTML = lang.hello
+                }
+            }
+            IWriteHello.inject = ['lang']
+
+            var lang = {
+                hello: 'HELLO!'
+            }
+
+            function Bootstrapper(sayHi) {
+                this.start = function(){
+                    sayHi()
+                }
+            }
+            Bootstrapper.inject = ['sayHi']
+            Bootstrapper.startable = 'start'
+
+            ioc.factory('sayHi',IWriteHello)
+            ioc.value('lang',lang)
+            ioc.ctor('boot',Bootstrapper)
+
+            ioc.start()
+        </script>
+    </body>
+</html>

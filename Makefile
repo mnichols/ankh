@@ -1,5 +1,8 @@
 LOG = export DEBUG=implants:*
 
+build: clean
+	./node_modules/.bin/gulp build
+
 test: clean
 	./node_modules/.bin/gulp test
 	./node_modules/.bin/testem
