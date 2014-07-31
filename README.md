@@ -107,6 +107,22 @@ ankh.ctor('svc',MyService)
 //resolve
 ankh.resolve('svc',{ dep2: 'BAZ'}) // -> use 'BAZ' for dep2 value
 ankh.resolve('svc') // -> use 'BAR' for dep2 value
+
+```
+
+### Validating the container for acyclic dependencies (experimental)
+
+`ankh` tries hard to tell you if the container has cyclic dependencies.
+Decorators _can_ be difficult to detect this.
+
+```js
+
+try {
+    var graph  = ankh.validate() // if OK then an array of execution order is returned
+} catch(err) {
+    //otherwise an error is throw trying to identify failure
+}
+
 ```
 
 ## Docs
