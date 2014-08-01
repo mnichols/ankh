@@ -271,6 +271,35 @@ describe('Ankh',function(){
                 .equal('I resolve using factory named BYPASSED')
         })
     })
+    describe('when decorating an instance',function(){
+        var decorators
+        beforeEach(function(){
+            sut = Ankh.create()
+        })
+        beforeEach(function(){
+            CowbirdFactory.inject = ['@impl']
+            function CowbirdFactory(impl){
+                return function Cowbird(){
+                    this.impl = impl.foo
+                }
+            }
+            var Promise = {
+                foo: 'bar'
+            }
+
+            sut.factory('Cowbird',CowbirdFactory)
+            sut.instance('Promise',Promise)
+            sut.decorate('Promise','Cowbird')
+
+        })
+        it('should be decorated',function(){
+            return  sut.resolve('Promise')
+                .then(function(it){
+                    return new it().should.have.property('impl','bar')
+                })
+        })
+
+    })
     describe('when decorating a factory',function(){
         var decorators
         beforeEach(function(){

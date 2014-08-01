@@ -12,11 +12,16 @@ describe('Registrations',function(){
         it('should reject simple circular dep',function(){
             function Foo(){}
             function Bar(){}
+            Foo.inject = ['bar']
+            Bar.inject = ['foo']
             sut.put(new ComponentModel('bar',Bar))
             sut.put(new ComponentModel('foo',Foo))
+            function circular(){
+                return sut.validate('foo')
+            }
+            circular.should.throw(/Cyclic dependency: "bar"/)
 
-            sut.validate('foo')
-                .should.be.rejectedWith(/Cyclic dependency: "bar"/)
+
         })
         it('should disregard decorator `impl` dependencies',function(){
             function Foo(){}
@@ -29,6 +34,7 @@ describe('Registrations',function(){
             sut.put(new ComponentModel('foo',Foo))
             sut.put(new ComponentModel('bar',Bar))
             sut.put(new ComponentModel('dec',Dec))
+
             return sut.validate('foo')
                 .should.be.ok
         })
@@ -50,8 +56,8 @@ describe('Registrations',function(){
             sut.put(new ComponentModel('john',John))
             sut.put(new ComponentModel('tom',Tom))
 
-            return sut.validate()
-                .should.be.rejectedWith(/Cyclic dependency: "john"/)
+
+            return sut.validate.bind(sut).should.throw(/Cyclic dependency: "john"/)
         })
         it('should resolve acyclic deps',function(){
             function Foo(){}
@@ -64,7 +70,7 @@ describe('Registrations',function(){
             sut.put(new ComponentModel('mee','mike'))
 
             return sut.validate('foo')
-                .should.eventually.eql(['mee','bar','foo'])
+                .should.eql(['mee','bar','foo'])
 
         })
         it('should return models having `startable` attribute',function(){
