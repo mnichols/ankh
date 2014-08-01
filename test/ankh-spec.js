@@ -280,6 +280,9 @@ describe('Ankh',function(){
             CowbirdFactory.inject = ['@impl']
             function CowbirdFactory(impl){
                 return function Cowbird(){
+                    if(!impl) {
+                        throw new Error('implementation not provided!')
+                    }
                     this.impl = impl.foo
                 }
             }
@@ -287,7 +290,10 @@ describe('Ankh',function(){
                 foo: 'bar'
             }
 
-            sut.factory('Cowbird',CowbirdFactory)
+            sut.factory('Cowbird',CowbirdFactory, {
+                lifestyle: 'singleton'
+
+            })
             sut.instance('Promise',Promise)
             sut.decorate('Promise','Cowbird')
 
