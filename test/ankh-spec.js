@@ -233,7 +233,7 @@ describe('Ankh',function(){
                             this.list.push(starts)
                         }
                         ,start: function(){
-                            this.list.push('DONE')
+                            this.add('DONE')
                         }
                     }
 
