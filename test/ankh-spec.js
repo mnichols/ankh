@@ -148,33 +148,149 @@ describe('Ankh',function(){
         })
     })
     describe('when starting with container having startables',function(){
-        beforeEach(function(){
-            sut = Ankh.create()
-        })
-        beforeEach(function(){
-            function GFactory(){
+        describe('given interdependencies via root',function(){
+            beforeEach(function(){
+                sut = Ankh.create()
+            })
+            beforeEach(function(){
+                BooFactory.startable= 'start'
+                BooFactory.inject = ['hoo']
+                function BooFactory(hoo){
+                    var spec = {
+                        started: false
+                        ,name: 'boo'
+                        ,start: function() {
+                            hoo.add(this.name)
+                            this.started = hoo
+                        }
+                    }
+                    return spec
+                }
 
-                return {
-                    started: false
-                    ,startemUp: function(){
-                        this.started = true
+                HooFactory.startable = 'start'
+                function HooFactory(){
+                    var spec = {
+                        started: false
+                        ,list: []
+                        ,add: function(starts) {
+                            this.list.push(starts)
+                        }
+                        ,start: function(){
+                            this.add('DONE')
+                        }
+                    }
+
+                    return spec
+                }
+
+                sut.factory('hoo',HooFactory,{lifestyle:'singleton'})
+                sut.factory('boo',BooFactory,{lifestyle:'singleton'})
+            })
+            beforeEach(function(){
+                return sut.start()
+            })
+
+            it('should invoke startables in proper order based on dependency graph',function(){
+                return sut.resolve('boo')
+                    .then(function(boo){
+                        return boo.started.should.be.ok
+                    })
+                    .then(function(){
+                        return sut.resolve('hoo')
+                            .then(function(hoo){
+                                return hoo.list.should.eql(['boo','DONE'])
+                            })
+
+                    })
+            })
+
+        })
+        describe('given interdependencies via startable fn',function(){
+            beforeEach(function(){
+                sut = Ankh.create()
+            })
+            beforeEach(function(){
+                BooFactory.startable= 'start'
+                function BooFactory(){
+                    var spec = {
+                        started: false
+                        ,name: 'boo'
+                        ,start: function(hoo) {
+                            hoo.add(this.name)
+                            this.started = hoo
+                        }
+                    }
+                    spec.start.inject = ['hoo']
+                    return spec
+                }
+
+                HooFactory.startable = 'start'
+                function HooFactory(){
+                    var spec = {
+                        started: false
+                        ,list: []
+                        ,add: function(starts) {
+                            this.list.push(starts)
+                        }
+                        ,start: function(){
+                            this.add('DONE')
+                        }
+                    }
+
+                    return spec
+                }
+
+                sut.factory('hoo',HooFactory,{lifestyle:'singleton'})
+                sut.factory('boo',BooFactory,{lifestyle:'singleton'})
+            })
+            beforeEach(function(){
+                return sut.start()
+            })
+
+            it('should invoke startables in proper order based on dependency graph',function(){
+                return sut.resolve('boo')
+                    .then(function(boo){
+                        return boo.started.should.be.ok
+                    })
+                    .then(function(){
+                        return sut.resolve('hoo')
+                            .then(function(hoo){
+                                return hoo.list.should.eql(['boo','DONE'])
+                            })
+                    })
+            })
+
+        })
+        describe('given no interdependencies',function(){
+            beforeEach(function(){
+                sut = Ankh.create()
+            })
+            beforeEach(function(){
+                function GFactory(){
+
+                    return {
+                        started: false
+                        ,startemUp: function(){
+                            this.started = true
+                        }
                     }
                 }
-            }
 
-            GFactory.startable = 'startemUp'
+                GFactory.startable = 'startemUp'
 
-            sut.factory('g',GFactory,{ lifestyle: 'singleton'})
-            sut.factory('a',AFactory, { lifestyle: 'singleton'})
-        })
-        beforeEach(function(){
-            return sut.start()
-        })
+                sut.factory('g',GFactory,{ lifestyle: 'singleton'})
+                sut.factory('a',AFactory, { lifestyle: 'singleton'})
+            })
+            beforeEach(function(){
+                return sut.start()
+            })
 
-        it('should invoke its startable function',function(){
-            return sut.resolve('g')
-                .should.eventually
-                .have.property('started',true)
+            it('should invoke its startable function',function(){
+                return sut.resolve('g')
+                    .should.eventually
+                    .have.property('started',true)
+            })
+
         })
 
     })
