@@ -47,6 +47,19 @@ describe('Ankh',function(){
     }
 
     var sut
+    describe('when verifying a service is registered',function(){
+        beforeEach(function(){
+            sut= Ankh.create()
+            sut.value('val','foo')
+        })
+        it('should return true for registered models',function(){
+            sut.isRegistered('val')
+        })
+        it('should return false for unregistered models',function(){
+            sut.isRegistered('xval')
+        })
+
+    })
     describe('when resolving a value',function(){
         var val
         beforeEach(function(){
