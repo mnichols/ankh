@@ -166,12 +166,26 @@ describe('Ankh',function(){
                 sut = Ankh.create()
             })
             beforeEach(function(){
+                YooFactory.startable = 'start'
+                YooFactory.inject = ['boo']
+                function YooFactory(boo){
+                    var spec = {
+                        start: function() {
+                            boo.add('yoo')
+                        }
+                    }
+                    return spec
+                }
+
                 BooFactory.startable= 'start'
                 BooFactory.inject = ['hoo']
                 function BooFactory(hoo){
                     var spec = {
                         started: false
                         ,name: 'boo'
+                        ,add: function(another) {
+                            hoo.add(another)
+                        }
                         ,start: function() {
                             hoo.add(this.name)
                             this.started = hoo
@@ -198,6 +212,7 @@ describe('Ankh',function(){
 
                 sut.factory('hoo',HooFactory,{lifestyle:'singleton'})
                 sut.factory('boo',BooFactory,{lifestyle:'singleton'})
+                sut.factory('yoo',YooFactory,{lifestyle:'singleton'})
             })
             beforeEach(function(){
                 return sut.start()
@@ -211,7 +226,7 @@ describe('Ankh',function(){
                     .then(function(){
                         return sut.resolve('hoo')
                             .then(function(hoo){
-                                return hoo.list.should.eql(['boo','DONE'])
+                                return hoo.list.should.eql(['yoo','boo','DONE'])
                             })
 
                     })
@@ -249,10 +264,12 @@ describe('Ankh',function(){
                             this.add('DONE')
                         }
                     }
+                    spec.start.inject = ['ignore']
 
                     return spec
                 }
 
+                sut.value('ignore','ignorance')
                 sut.factory('hoo',HooFactory,{lifestyle:'singleton'})
                 sut.factory('boo',BooFactory,{lifestyle:'singleton'})
             })

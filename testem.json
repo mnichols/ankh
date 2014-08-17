@@ -8,5 +8,5 @@
         ,"./test/**/*.js"
     ]
     ,"before_tests": "./node_modules/.bin/gulp test"
-    , "launch_in_dev": ["Chrome","Firefox"]
+    , "launch_in_dev": ["Chrome","Firefox","Safari"]
 }

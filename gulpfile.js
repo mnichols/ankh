@@ -8,7 +8,6 @@ var gulp = require('gulp')
     , url = require('url')
     , util = require('util')
     , mkdirp = require('mkdirp')
-    , watchify = require('watchify')
     ;
 
 
@@ -30,15 +29,6 @@ gulp.task('clean', function () {
         .pipe($.rimraf())
 })
 
-// JSHint the source files
-gulp.task('jshint', function () {
-    return gulp.src(['./lib/*.js','./test/*-spec.js'])
-        .pipe($.jshint())
-        .pipe($.jshint.reporter('default'))
-        .pipe($.jshint.reporter('fail'))
-        .on('error', gulp.fail)
-})
-
 gulp.task('test',['clean'],function(){
     var specFiles = './test/*-spec.js'
     var tests = glob.sync(specFiles)
@@ -51,15 +41,6 @@ gulp.task('test',['clean'],function(){
         .pipe(gulp.dest('./build'))
 
 })
-gulp.task('watch',['test'],function(){
-
-    gulp.watch([
-        './lib/**/*.js'
-        ,'./test/**/*.js'
-    ]
-    ,['test'])
-})
-
 
 // Helper method to kill the gulp task on error
 gulp.fail = function(err) {
