@@ -46,6 +46,7 @@ describe('Ankh',function(){
         }
     }
 
+
     var sut
     describe('when verifying a service is registered',function(){
         beforeEach(function(){
@@ -123,6 +124,23 @@ describe('Ankh',function(){
                         expect(instance.ME).not.to.exist
                         instance.a.should.equal('factory')
                     })
+            })
+
+        })
+        describe('given factory that returns undefined',function(){
+            beforeEach(function(){
+                sut = Ankh.create()
+            })
+            beforeEach(function(){
+                function Malformed(){
+                    var declaredButUnreturned='wont werk'
+                }
+                sut.factory('malformed',Malformed)
+            })
+            it('should throw',function(){
+                return sut.resolve('malformed')
+                    .should.eventually
+                    .be.rejectedWith(/Factory could not create `malformed`/)
             })
 
         })
@@ -360,11 +378,30 @@ describe('Ankh',function(){
         beforeEach(function(){
             sut.factory('dynamo',DynamoFactory)
         })
-        it('should return instance with deps',function(){
+        function invokeWith(param){
             return sut.resolve('dynamo',{
-                dynamicParam: 'foo'
+                dynamicParam: param
             }).then(function(instance){
-                return instance.dynamic.should.equal('foo')
+                return instance.dynamic
+            })
+
+        }
+        it('should return instance with deps',function(){
+            return invokeWith('foo').should.eventually.equal('foo')
+        })
+
+        it('should pass along dynamicParams with falsy values,empty string',function(){
+            return invokeWith('').should.eventually.equal('')
+        })
+        it('should pass along dynamicParams with falsy values,zero',function(){
+            return invokeWith(0).should.eventually.equal(0)
+        })
+        it('should pass along dynamicParams with falsy values,null',function(){
+            return invokeWith(null).should.eventually.equal(null)
+        })
+        it('should pass along dynamicParams with falsy values,undefined',function(){
+            return invokeWith(undefined).then(function(it){
+                return expect(it).to.be.undefined
             })
         })
 
@@ -416,6 +453,46 @@ describe('Ankh',function(){
             return sut.resolve('cust').should.eventually
                 .equal('I resolve using factory named BYPASSED')
         })
+    })
+    describe('when deferring an service resolution',function(){
+        var single
+        beforeEach(function(){
+
+            ATransient.inject = ['count']
+            function ATransient(counter){
+                return counter
+            }
+
+            ASingleton.inject = [
+                'aTransientDeferred'
+            ]
+            function ASingleton(aTransient) {
+                var counter = 0
+                return {
+                    execute: function(){
+                        return aTransient({count:counter++})
+                    }
+                }
+            }
+            sut = Ankh.create()
+            sut.factory('single',ASingleton)
+            sut.factory('aTransient',ATransient)
+            sut.deferrable('aTransient')
+        })
+        beforeEach(function(){
+            return sut.resolve('single')
+                .then(function(it){
+                    single = it
+                })
+        })
+        it('should resolve on demand',function(){
+            return single.execute().should.eventually.equal(0)
+                .then(function(){
+                    single.execute().should.eventually.equal(1)
+                })
+
+        })
+
     })
     describe('when decorating an instance',function(){
         var decorators
