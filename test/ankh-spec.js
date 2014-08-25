@@ -103,6 +103,34 @@ describe('Ankh',function(){
                         instance.a.should.equal('factory')
                     })
             })
+            it('should resolveAll singletons exactly once',function(){
+                var resolvedCount = 0
+                function onlyOne(){
+                    return ++resolvedCount
+                }
+
+                dep1.inject = ['onlyOne']
+                function dep1(single){
+                    return single
+                }
+                dep2.inject = ['onlyOne']
+                function dep2(single){
+                    return single
+                }
+                sut.factory('onlyOne',onlyOne,{
+                    lifestyle: 'singleton'
+                })
+                sut.factory('dep1',dep1)
+                sut.factory('dep2',dep2)
+
+                return sut.kernel.resolveAll(['dep1','dep2'])
+                    .then(function(these){
+                        resolvedCount.should.equal(1)
+                        these.length.should.equal(2)
+                        these[0].should.equal(1)
+                        these[1].should.equal(1)
+                    })
+            })
 
         })
         describe('given transient',function(){
