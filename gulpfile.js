@@ -12,7 +12,7 @@ var gulp = require('gulp')
 
 
 gulp.task('default',['build'])
-gulp.task('build',['test'],function(){
+gulp.task('build',[],function(){
     var b = browserify({
         entries: ['./lib']
     })
@@ -23,13 +23,7 @@ gulp.task('build',['test'],function(){
 })
 
 
-// Clean dist directory
-gulp.task('clean', function () {
-    return gulp.src('./build', { read: false })
-        .pipe($.rimraf())
-})
-
-gulp.task('test',['clean'],function(){
+gulp.task('test',[],function(){
     var specFiles = './test/*-spec.js'
     var tests = glob.sync(specFiles)
     tests.unshift('./test/spec-support.js')

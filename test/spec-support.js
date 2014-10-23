@@ -22,15 +22,3 @@ global.check = function asyncCheck(done, f) {
         done(e)
     }
 }
-before(function(){
-    //do stuff
-})
-after(function(){
-    //do stuf
-})
-beforeEach(function(){
-    //do stuff
-})
-afterEach(function(){
-    //do stuff
-})

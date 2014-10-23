@@ -1,4 +1,4 @@
-LOG = export DEBUG=implants:*
+LOG = export DEBUG=ankh:*
 
 build: clean
 	./node_modules/.bin/gulp build
@@ -8,7 +8,7 @@ test: clean
 	./node_modules/.bin/testem
 
 verbose:
-	$(eval LOG = export DEBUG=implants:*)
+	$(eval LOG = export DEBUG=ankh:*)
 
 silent:
 	LOG = unset DEBUG
@@ -21,8 +21,4 @@ docs:
 	./node_modules/.bin/groc ./lib/**/*.js README.md
 	pushd ./doc; python -m SimpleHTTPServer; popd
 
-dev:
-	./node_modules/.bin/gulp watch
-
-
-.PHONY: test build dev compile-tests verbose silent docs
+.PHONY: test build verbose silent docs
