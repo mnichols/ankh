@@ -1,6 +1,6 @@
 {
   "name": "ankh",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Dependency Injection for JS",
   "main": "index.js",
   "directories": {
@@ -20,25 +20,25 @@
   },
   "devDependencies": {
     "browserify": "~4.2.3",
+    "chai": "^1.10.0",
+    "chai-as-promised": "^4.1.1",
     "glob": "~4.0.4",
-    "vinyl": "~0.3.0",
-    "mkdirp": "~0.5.0",
+    "groc": "~0.6.3",
     "gulp": "~3.8.6",
-    "testem": "~0.6.17",
     "gulp-load-plugins": "~0.5.3",
-    "vinyl-source-stream": "~0.1.1",
-    "jshint": "~2.5.2",
-    "source-map-support": "~0.2.7",
-    "mocha": "~1.20.1",
-    "chai": "~1.9.1",
-    "chai-as-promised": "~4.1.1",
-    "rimraf": "~2.2.8",
     "gulp-rimraf": "~0.1.0",
-    "groc": "~0.6.3"
+    "jshint": "~2.5.2",
+    "mkdirp": "~0.5.0",
+    "mocha": "^2.1.0",
+    "rimraf": "~2.2.8",
+    "source-map-support": "^0.2.9",
+    "testem": "~0.6.17",
+    "vinyl": "~0.3.0",
+    "vinyl-source-stream": "~0.1.1"
   },
   "dependencies": {
-    "bluebird": "~2.2.2",
-    "toposort": "~0.2.10",
-    "clone": "~0.1.17"
+    "bluebird": "^2.9.3",
+    "clone": "~0.1.17",
+    "toposort": "~0.2.10"
   }
 }
