@@ -601,7 +601,77 @@ describe('Ankh',function(){
             })
 
         })
+        describe('given one decoration across multiple factories', function() {
+            Decorator.inject = ['@impl']
+            function Decorator(impl) {
+                impl.decorated = true
+                return impl
+            }
+            beforeEach(function () {
+                sut.factory('a', AFactory)
+                sut.factory('b', BFactory)
+                sut.factory('decorator', Decorator)
+                sut.decorate('a', 'decorator')
+                sut.decorate('b', 'decorator')
+            })
+            it('should return two distinct decorated instances', function() {
+                return sut.resolve('a')
+                    .then(function (a) {
+                        a.decorated.should.equal(true)
+                        a.modified = true
+                    })
+                    .then(function () {
+                        return sut.resolve('b')
+                            .then(function (b) {
+                                b.decorated.should.equal(true)
+                                return expect(b.modified).to.be.undefined
+                            })
+                    })
+            })
+        })
+        describe('given one decoration on multiple factories injected into a factory', function() {
+            function decoratedA() {
+                return {
+                    a: 'a'
+                }
+            }
+            function decoratedB() {
+                return {
+                    b: 'b'
+                }
+            }
+
+            Decorator.inject = ['@impl']
+            function Decorator(impl) {
+                impl.decorated = true
+                return impl
+            }
+
+            CFactory.inject = ['a', 'b']
+            function CFactory(a, b) {
+                return {
+                    a: a
+                    , b: b
+                }
+            }
+            beforeEach(function () {
+                sut.factory('a', decoratedA)
+                sut.factory('b', decoratedB)
+                sut.factory('c', CFactory)
+                sut.factory('decorator', Decorator)
+                sut.factory('decorator2', Decorator)
+                sut.decorate('a', 'decorator')
+                sut.decorate('b', 'decorator')
+            })
+            it('should inject two distinct decorated instances', function() {
+                return sut.resolve('c')
+                    .then(function (instance) {
+                        instance.a.a.should.equal('a')
+                        instance.a.decorated.should.equal(true)
+                        instance.b.b.should.equal('b')
+                        instance.b.decorated.should.equal(true)
+                    })
+            })
+        })
     })
-
-
 })
