@@ -2,6 +2,7 @@ LOG = export DEBUG=ankh:*
 
 build: clean
 	./node_modules/.bin/gulp build
+	./node_modules/.bin/gulp dist
 
 ci: clean node_modules
 	./node_modules/.bin/gulp test
@@ -23,10 +24,14 @@ clean:
 node_modules: package.json
 	npm install --quiet
 
+examples: build
+	cp -r ./build/* ./examples/
+	pushd ./examples; python -m SimpleHTTPServer 8001; popd
+
 docs:
 	pip install Pygments
 	./node_modules/.bin/groc ./lib/**/*.js README.md
 	pushd ./doc; python -m SimpleHTTPServer; popd
 
 
-.PHONY: test ci build verbose silent docs
+.PHONY: test ci build verbose silent docs examples

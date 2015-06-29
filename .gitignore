@@ -7,6 +7,7 @@ sauce.json
 
 doc/
 build/
+examples/ankh*
 
 # Runtime data
 pids

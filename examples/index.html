@@ -2,10 +2,10 @@
     <body>
         <div class="app">
         </div>
-        <script src="../../build/bundle.js"></script>
+        <script src="ankh.js"></script>
         <script>
-            var IoC = require('ioc')
-            var ioc = new IoC()
+            console.log('`ankh` is a global',ankh)
+            var ioc = new ankh()
 
             function IWriteHello(lang) {
                 return function hello() {

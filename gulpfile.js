@@ -1,13 +1,16 @@
 var gulp = require('gulp')
     , $ = require('gulp-load-plugins')()
     , browserify = require('browserify')
-    , vinyl = require('vinyl-source-stream')
+    , sourcemaps = require('gulp-sourcemaps')
+    , source = require('vinyl-source-stream')
+    , buffer= require('vinyl-buffer')
     , fs = require('fs')
     , glob = require('glob')
     , path = require('path')
     , url = require('url')
     , util = require('util')
     , mkdirp = require('mkdirp')
+    , uglify = require('gulp-uglify')
     ;
 
 
@@ -15,10 +18,28 @@ gulp.task('default',['build'])
 gulp.task('build',[],function(){
     var b = browserify({
         entries: ['./lib']
+        , debug: true
+        , standalone: 'ankh'
     })
-    b.require('./lib',{expose: 'ioc'})
     return b.bundle()
-        .pipe(vinyl('bundle.js'))
+        .pipe(source('ankh.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest('./build'))
+})
+gulp.task('dist',[],function(){
+    var b = new browserify({
+        entries: ['./lib']
+        , standalone: 'ankh'
+    })
+    b.transform({global: true},'uglifyify')
+    return b.bundle()
+        .pipe(source('ankh.min.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('./build'))
 })
 
@@ -31,7 +52,7 @@ gulp.task('test',[],function(){
         entries: tests
     })
     return b.bundle({ debug: true })
-        .pipe(vinyl('specs.js'))
+        .pipe(source('specs.js'))
         .pipe(gulp.dest('./build'))
 
 })

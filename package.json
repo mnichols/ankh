@@ -19,7 +19,7 @@
     "url": "https://github.com/mnichols/ankh/issues"
   },
   "devDependencies": {
-    "browserify": "~4.2.3",
+    "browserify": "^10.2.4",
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
     "glob": "~4.0.4",
@@ -27,6 +27,8 @@
     "gulp": "~3.8.6",
     "gulp-load-plugins": "~0.5.3",
     "gulp-rimraf": "~0.1.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
     "jshint": "~2.5.2",
     "karma": "^0.12.37",
     "karma-browserify": "^4.2.1",
@@ -39,7 +41,9 @@
     "mocha": "^2.1.0",
     "rimraf": "~2.2.8",
     "source-map-support": "^0.2.9",
+    "uglifyify": "^3.0.1",
     "vinyl": "~0.3.0",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "~0.1.1"
   },
   "dependencies": {
