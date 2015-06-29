@@ -288,21 +288,16 @@ Run `make docs` to see pretty documentation
 
 ## Tests
 
-`ankh` uses [testem](https://github.com/airportyh/testem).
+`ankh` uses [karma](http://karma-runner.github.io/0.12/index.html).
 You can `make test` to runem.
 
-
-### CHANGELOG
-
-* `0.0.2` Settled API
-* `0.0.3` Some documentation
 
 #### Thanks and Inspirations
 
 The work here is heavily influenced from the IoC concepts found in Castle Project's
 [Windsor Inversion of Control Container](https://github.com/castleproject/Windsor).
 
-The popularity of [Angular](https://angularjs.org/) demonstrated for me that this is one of those patterns that
+The success of [Angular](https://angularjs.org/) demonstrated for me that this is one of those patterns that
 belongs in dynamic language world just as much as it does in static lang.
 
 
