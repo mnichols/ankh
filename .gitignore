@@ -3,6 +3,7 @@ logs
 *.log
 
 specs.js
+sauce.json
 
 doc/
 build/

@@ -3,9 +3,13 @@ LOG = export DEBUG=ankh:*
 build: clean
 	./node_modules/.bin/gulp build
 
-test: clean
+ci: clean node_modules
 	./node_modules/.bin/gulp test
-	./node_modules/.bin/testem
+	./node_modules/.bin/karma start karma.conf-ci.js
+
+test: clean node_modules
+	./node_modules/.bin/gulp test
+	./node_modules/.bin/karma start karma.conf.js
 
 verbose:
 	$(eval LOG = export DEBUG=ankh:*)
@@ -16,9 +20,13 @@ silent:
 clean:
 	rm -rf build
 
+node_modules: package.json
+	npm install --quiet
+
 docs:
 	pip install Pygments
 	./node_modules/.bin/groc ./lib/**/*.js README.md
 	pushd ./doc; python -m SimpleHTTPServer; popd
 
-.PHONY: test build verbose silent docs
+
+.PHONY: test ci build verbose silent docs

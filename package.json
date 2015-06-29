@@ -28,17 +28,23 @@
     "gulp-load-plugins": "~0.5.3",
     "gulp-rimraf": "~0.1.0",
     "jshint": "~2.5.2",
+    "karma": "^0.12.37",
+    "karma-browserify": "^4.2.1",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sauce-launcher": "^0.2.11",
     "mkdirp": "~0.5.0",
     "mocha": "^2.1.0",
     "rimraf": "~2.2.8",
     "source-map-support": "^0.2.9",
-    "testem": "~0.6.17",
     "vinyl": "~0.3.0",
     "vinyl-source-stream": "~0.1.1"
   },
   "dependencies": {
-    "bluebird": "^2.9.3",
-    "clone": "~0.1.17",
+    "bluebird": "^2.9.30",
+    "clone": "^1.0.2",
     "toposort": "~0.2.10"
   }
 }
