@@ -1,6 +1,6 @@
 ankh
 ========
-[![Travis-CI](https://travis-ci.org/mnichols/ankh)](https://travis-ci.org/mnichols/ankh)
+[![Build Status](https://travis-ci.org/mnichols/ankh.svg?branch=master)](https://travis-ci.org/mnichols/ankh)
 
 ## License
 MIT
