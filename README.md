@@ -1,5 +1,9 @@
 ankh
 ========
+[![Travis-CI](https://travis-ci.org/mnichols/ankh)](https://travis-ci.org/mnichols/ankh)
+
+## License
+MIT
 
 Dependency Injection for JavaScript
 
