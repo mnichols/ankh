@@ -118,12 +118,13 @@ module.exports = function(config) {
 
         sauceLabs: {
             testName: 'ankh sauce tests'
-            , recordScreenshots: true
+            , recordScreenshots: false
             , recordVideo: true
             , tags: tags
             , build: process.env.TRAVIS_BUILD_NUMBER
             , connectOptions: {
-                tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
+                port: 5757
+                , logfile: 'sauce_connect.log'
             }
         },
         captureTimeout: 240000,
