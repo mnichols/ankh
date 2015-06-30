@@ -20,56 +20,57 @@ module.exports = function(config) {
     }
 
     // Browsers to run on Sauce Labs
-    var customLaunchers = {
-        'SL_Win_IE_9': {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            version: '9',
-            platform: 'Windows 2008'
-        }
-        ,'SL_Win_IE_10': {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            version: '10',
-            platform: 'Windows 2012'
-        }
-        ,'SL_Win_IE_11': {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            version: '11',
-            platform: 'Windows 8.1'
-        }
-        ,'SL_Win_Chrome': {
-            base: 'SauceLabs',
-            browserName: 'chrome',
-            platform: 'Windows 2008'
-        }
-        ,'SL_MacOSX_Safari': {
-            base: 'SauceLabs',
-            browserName: 'safari',
-            platform: 'OS X 10.9'
-        }
-        //,'SL_Linux_Chrome': {
-            //base: 'SauceLabs',
-            //browserName: 'chrome',
-        //}
-        //,'SL_Linux_FireFox': {
-            //base: 'SauceLabs',
-            //browserName: 'firefox',
-        //}
-        //,'SL_Win_IE_11': {
-            //base: 'SauceLabs',
-            //browserName: 'internet explorer',
-            //version: '11',
-            //platform: 'Windows 8.1'
-        //}
-        //,'SL_IOS_Safari': {
-            //base: 'SauceLabs',
-            //browserName: 'iphone',
-            //platform: 'OS X 10.9',
-            //version:'7.1'
-        //}
-    };
+    var customLaunchers = {}
+    /*
+    //windows
+    customLaunchers['SL_Win_IE_9']= {
+        base: 'SauceLabs',
+        browserName: 'internet explorer',
+        version: '9',
+        platform: 'Windows 2008'
+    }
+    customLaunchers['SL_Win_IE_10'] = {
+        base: 'SauceLabs',
+        browserName: 'internet explorer',
+        version: '10',
+        platform: 'Windows 2012'
+    }
+    customLaunchers['SL_Win_IE_11'] = {
+        base: 'SauceLabs',
+        browserName: 'internet explorer',
+        version: '11',
+        platform: 'Windows 8.1'
+    }
+    customLaunchers['SL_Win_Chrome'] = {
+        base: 'SauceLabs',
+        browserName: 'chrome',
+        platform: 'Windows 2008'
+    }
+    //osx
+    customLaunchers['SL_MacOSX_Safari'] = {
+        base: 'SauceLabs',
+        browserName: 'safari',
+        platform: 'OS X 10.9'
+    }
+    //ios
+    customLaunchers['SL_IOS_Safari'] = {
+        base: 'SauceLabs',
+        browserName: 'iphone',
+        platform: 'OS X 10.9',
+        version:'7.1'
+    }
+    */
+    //linux
+    customLaunchers[ 'SL_Linux_Chrome'] = {
+        base: 'SauceLabs',
+        browserName: 'chrome',
+        platform: 'Linux'
+    }
+    customLaunchers['SL_Linux_FireFox'] = {
+        base: 'SauceLabs',
+        browserName: 'firefox',
+        platform: 'Linux'
+    }
 
     config.set({
 
@@ -121,6 +122,9 @@ module.exports = function(config) {
             , recordVideo: true
             , tags: tags
             , build: process.env.TRAVIS_BUILD_NUMBER
+            , connectOptions: {
+                tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER
+            }
         },
         captureTimeout: 240000,
         customLaunchers: customLaunchers,
