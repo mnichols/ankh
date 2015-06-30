@@ -14,6 +14,11 @@ module.exports = function(config) {
         }
     }
 
+    var tags = []
+    if(process.env.TRAVIS_BRANCH) {
+        tags.push(process.env.TRAVIS_BRANCH + ':' + process.TRAVIS_BUILD_NUMBER)
+    }
+
     // Browsers to run on Sauce Labs
     var customLaunchers = {
         'SL_Win_IE_9': {
@@ -114,6 +119,8 @@ module.exports = function(config) {
             testName: 'ankh sauce tests'
             , recordScreenshots: true
             , recordVideo: true
+            , tags: tags
+            , build: process.env.TRAVIS_BUILD_NUMBER
         },
         captureTimeout: 240000,
         customLaunchers: customLaunchers,

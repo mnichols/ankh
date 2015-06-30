@@ -4,11 +4,13 @@ build: clean
 	./node_modules/.bin/gulp build
 	./node_modules/.bin/gulp dist
 
-ci: clean node_modules
+ci: clean node_modules build
+	./node_modules/.bin/mocha ./test/**-spec.js
 	./node_modules/.bin/gulp test
 	./node_modules/.bin/karma start karma.conf-ci.js
 
-test: clean node_modules
+test: clean node_modules build
+	./node_modules/.bin/mocha ./test/**-spec.js
 	./node_modules/.bin/gulp test
 	./node_modules/.bin/karma start karma.conf.js
 

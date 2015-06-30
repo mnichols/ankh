@@ -50,8 +50,9 @@ gulp.task('test',[],function(){
     tests.unshift('./test/spec-support.js')
     var b = browserify({
         entries: tests
+        , debug: true
     })
-    return b.bundle({ debug: true })
+    return b.bundle()
         .pipe(source('specs.js'))
         .pipe(gulp.dest('./build'))
 
