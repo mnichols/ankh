@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "make test"
+    , "publish":"make publish"
   },
   "repository": {
     "type": "git",
