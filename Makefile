@@ -31,9 +31,9 @@ examples: build
 	pushd ./examples; python -m SimpleHTTPServer 8001; popd
 
 docs:
-	pip install Pygments
-	./node_modules/.bin/groc ./lib/**/*.js README.md
-	pushd ./doc; python -m SimpleHTTPServer; popd
+	./node_modules/.bin/doxx --title Ankh --source lib --target docs
 
+view-docs: docs
+	pushd ./docs; python -m SimpleHTTPServer 3000; popd
 
-.PHONY: test ci build verbose silent docs examples
+.PHONY: test ci build verbose silent docs examples view-docs

@@ -1,9 +1,9 @@
-ankh
+[ankh](https://github.com/mnichols/ankh)
 ========
 [![Build Status](https://travis-ci.org/mnichols/ankh.svg?branch=master)](https://travis-ci.org/mnichols/ankh)
 
 ## License
-MIT
+[MIT](https://raw.githubusercontent.com/mnichols/ankh/master/LICENSE)
 
 Dependency Injection for JavaScript
 
@@ -288,7 +288,11 @@ try {
 
 ## Docs
 
-Run `make docs` to see pretty documentation
+Run `make view-docs` to see pretty documentation
+
+## Example
+
+There is an example of creating and using the `ankh` container in the `/examples` folder.
 
 ## Tests
 
