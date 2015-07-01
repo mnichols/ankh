@@ -5,7 +5,7 @@ logs
 specs.js
 sauce.json
 
-doc/
+docs/
 build/
 examples/ankh*
 
