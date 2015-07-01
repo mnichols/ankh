@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>ankh</title>
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/2.3.2/assets/css/docs.css">
+    <style>
+      body > .navbar .brand {
+        float:left;
+        text-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px, rgba(255, 255, 255, 0.4) 0px 0px 30px;
+        color: white;
+        margin-left:0px;
+        font-weight:normal;
+      }
+      
+      .bs-docs-sidenav.affix {
+        box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+      }
+      
+      .bs-docs-sidenav i{
+        width: 8px;
+        height: 8px;
+        padding: 0px;
+        margin: 0px;
+        display: inline-block;
+        margin-right:0.5em;
+      }
+      
+      .bs-docs-sidenav > li > a {
+          word-wrap: break-word;
+      }
+      
+      .bs-docs-sidenav > li:first-child > a {
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+      }
+      
+      code[class*="language-"],pre[class*="language-"]{color:black;text-shadow:0 1px white;font-family:Consolas,Monaco,'Andale Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*="language-"],pre[class*="language-"]{background:#f5f2f0}:not(pre)>code[class*="language-"]{padding:.1em;border-radius:.3em}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:slategray}.token.punctuation{color:#999}.namespace{opacity:.7}.token.property,.token.tag,.token.boolean,.token.number{color:#905}.token.selector,.token.attr-name,.token.string{color:#690}.token.operator,.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.regex,.token.important{color:#e90}.token.important{font-weight:bold}.token.entity{cursor:help}
+      div.description {margin: 14px 0; padding-top: 14px; border-bottom:1px solid #eee; }
+      .tags {}
+      .ctx-type {
+        display:inline-block;
+        margin-right:0.5em;
+        //- float:right; margin-top:8px
+      }
+      
+      footer iframe{vertical-align:middle;}
+      
+    </style>
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container"><a class="brand">Doxx</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right sponsored"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header id="overview" class="jumbotron subhead">
+      <div class="container">
+        <h1>ankh</h1>
+        <p class="lead"></p>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li class="active"><a href="index.html">Main</a></li>
+            <li><a href="cacheable-resolver.js.html">cacheable-resolver.js</a></li>
+            <li><a href="component-model.js.html">component-model.js</a></li>
+            <li><a href="constructor-activator.js.html">constructor-activator.js</a></li>
+            <li><a href="decorating-resolver.js.html">decorating-resolver.js</a></li>
+            <li><a href="decorators.js.html">decorators.js</a></li>
+            <li><a href="dependency-graph.js.html">dependency-graph.js</a></li>
+            <li><a href="dynamic-new.js.html">dynamic-new.js</a></li>
+            <li><a href="factory-activator.js.html">factory-activator.js</a></li>
+            <li><a href="impl-activator.js.html">impl-activator.js</a></li>
+            <li><a href="impl-resolver.js.html">impl-resolver.js</a></li>
+            <li><a href="index.js.html">index.js</a></li>
+            <li><a href="kernel.js.html">kernel.js</a></li>
+            <li><a href="registrations.js.html">registrations.js</a></li>
+            <li><a href="resolution-context.js.html">resolution-context.js</a></li>
+            <li><a href="resolveable-component-model.js.html">resolveable-component-model.js</a></li>
+            <li><a href="startable-model.js.html">startable-model.js</a></li>
+            <li><a href="transient-resolver.js.html">transient-resolver.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+            </ul>
+          </div>
+        </div>
+        <div class="span9">
+          <section id="Main"><h1>ankh</h1>
+<p><a href="https://travis-ci.org/mnichols/ankh"><img src="https://travis-ci.org/mnichols/ankh.svg?branch=master" alt="Build Status"></a></p><h2>License</h2>
+<p>MIT</p><p>Dependency Injection for JavaScript</p><h2>Overview</h2>
+<p>I missed an IoC container in JavaScript that let me control the lifestyle and lifecycle of<br />components. I couldn&#39;t find a library that gave me such granular control, so<br />I rolled my own.</p><h2>Install</h2>
+<p><code>npm install --save ankh</code></p><h2>Glossary</h2>
+<ul>
+<li><em>activator</em> the method to use for construction of an component</li>
+<li><em>component</em> the &#39;thing&#39; to resolve at runtime, regardless of whether it was constructed by <code>ankh</code> or not</li>
+<li><em>lifecycle</em> the activation and resolution flow of construction a component</li>
+<li><em>lifestyle</em> the duration of a components life in the container. </li>
+</ul>
+<h2>Components &amp; lifestyle</h2>
+<p>Components may be constructed by <code>ankh</code>, or not. If they are then they will be managed<br />by <code>ankh</code> as configured by their &#39;lifestyle&#39;. Components created by <code>ankh</code> are, by default,<br /><code>transient</code>; meaning you get a new instance for each resolution. <code>ankh</code> can<br />guarantee a <code>singleton</code> instance when you register using <code>{ lifestyle: &#39;singleton&#39;}</code>.</p><p>Components which are managed outside the container, such as <code>instance</code> or <code>value</code> registrations,<br />will ignore any lifestyle directive.</p><h2>API</h2>
+<h3>Registering components</h3>
+<h4>Register a singleton factory</h4>
+<pre><code class="lang-js">var Ankh = require(&#39;ankh&#39;)
+var ankh = new Ankh()
+
+//register a singleton factory
+
+HandlerFactory.inject = [&#39;http&#39;]
+function HandlerFactory(http) {
+    return function handle(command) {
+        return http(...)
+    }
+}
+
+ankh.factory(&#39;handlerFactory&#39;,HandlerFactory, {
+    lifestyle: &#39;singleton&#39;
+})
+</code></pre>
+<h4>Register a transient (default) prototype</h4>
+<pre><code class="lang-js">//register a prototype
+
+Issue.inject = [&#39;cfg&#39;]
+function Issue(cfg) {
+    this.cfg = cfg
+
+}
+Issue.prototype.doIt = function(){}
+
+ankh.ctor(&#39;issue&#39;,Issue, {
+    lifestyle: &#39;transient&#39;
+})
+</code></pre>
+<h4>Register a value</h4>
+<pre><code class="lang-js">
+//note that this clones the value, so changes to the object are not reflected
+//in the container
+var cfg = { root: &#39;/api&#39;}
+ankh.value(&#39;cfg&#39;,cfg)
+</code></pre>
+<h4>Register an instance</h4>
+<pre><code class="lang-js">ankh.instance(&#39;bluebird&#39;,require(&#39;bluebird&#39;))
+</code></pre>
+<h4>Register an decorator</h4>
+<pre><code class="lang-`js">//first register your services
+// with &#39;@impl&#39; as a special key for the instance you want to decorate
+MyDecoratingService.inject = [&#39;@impl&#39;]
+function MyDecoratingService(impl){
+    //do things to the instance
+    //return whatever you want
+}
+ankh.factory(&#39;myTargetService&#39;,function(){})
+ankh.factory(&#39;myDecoratingService&#39;,MyDecoratingService)
+
+//register the decoration
+ankh.decorate(&#39;myTargetService&#39;,&#39;myDecoratingService&#39;)
+</code></pre>
+<h3>Resolving components</h3>
+<h4>Manual resolution</h4>
+<p>Typically, you won&#39;t manually resolve components, but of course during testing this<br />is useful. <code>ankh</code> will accept a second parameter object matching the key to the dependency to<br />override resolution. This is also great for testing for pushing mocks and the like<br />into your instances.</p><pre><code class="lang-js">
+MyService.inject = [&#39;dep1&#39;,&#39;dep2&#39;]
+function MyService(dep1,dep2) {
+
+}
+
+//register
+ankh.value(&#39;dep1&#39;,&#39;FOO&#39;)
+ankh.value(&#39;dep2&#39;,&#39;BAR&#39;)
+ankh.ctor(&#39;svc&#39;,MyService)
+
+//resolve
+ankh.resolve(&#39;svc&#39;,{ dep2: &#39;BAZ&#39;}) // -&gt; use &#39;BAZ&#39; for dep2 value
+    .then(function(it) {
+        //do things with &#39;svc&#39;
+    })
+
+ankh.resolve(&#39;svc&#39;) // -&gt; use &#39;BAR&#39; for dep2 value
+    .then(function(it) {
+        //do things with svc
+    })
+</code></pre>
+<h4>Lifestyle : Start and startables (bootstrap)</h4>
+<p><code>ankh</code> exposes a <code>start</code> method that can act as a bootstrapper for an application.<br />Components may participate in this lifecycle event by attaching an <code>startable</code> property<br />on the entity being registered. <code>ankh</code> will construct the instance (and resolve any<br />dependencies) and immediately invoke the method name provided by <code>startable</code>.</p><pre><code class="lang-js">
+Settings.startable = &#39;load&#39;
+function Settings() {
+
+    return {
+        load: function() {
+            //do stuff
+        }
+    }
+}
+ankh.factory(&#39;settings&#39;,Settings)
+
+ankh.start().then(...)
+</code></pre>
+<p>Sometimes you don&#39;t want to resolve the same dependencies during this period for a component,<br />so you may provide an <code>inject</code> array for the method in the same fashion as you<br />configure your component&#39;s dependencies.</p><pre><code class="lang-js">
+Settings.startable = &#39;load&#39;
+function Settings() {
+    var spec = {
+        load: function(cache) {
+            //do stuff with cache
+        }
+    }
+    spec.load.inject = [&#39;localStorage&#39;]
+    return spec
+}
+
+ankh.factory(&#39;settings&#39;,Settings)
+
+ankh.start().then(...)
+</code></pre>
+<h4>Lifestyle : Initializable</h4>
+<p>When <code>ankh</code> resolves a dependency it will invoke the method name provided by the<br />special <code>initializable</code> property on the registered entity. This happens <em>each time</em><br />the component is resolved.</p><pre><code class="lang-js">
+User.initializable = &#39;fetchUser&#39;
+function User(xhr) {
+    var spec =  {
+        userName: undefined
+        , fetchUser: function(xhr) {
+            return xhr(&#39;profile&#39;)
+                .bind(this)
+                .tap(function(usr) {
+                    this.userName = usr.name
+                })
+        }
+    }
+    spec.inject = [&#39;xhr&#39;]
+    return spec
+}
+
+Settings.inject = [&#39;user&#39;]
+function Settings(user) {
+    return {
+        sayHi: function() {
+            console.log(&#39;hi&#39;,user.userName) 
+        }
+    }
+}
+</code></pre>
+<h4>Deferrables</h4>
+<p>Sometimes a component needs to defer construction of a dependency. This can come up when:</p><ul>
+<li>Multiple instances of the same dependency are desired, but may not be registered with unique names</li>
+<li>Some action should take place before the dependency is meaningful (rare)</li>
+<li>A dynamic configuration should be used to override a dependency of the dependency (rarer)</li>
+</ul>
+<p>In all these cases, I prefer being explicit about such needs and register that behavior as<br />a component itself. However sometimes that isn&#39;t warranted or possible.</p><p>To that end, <code>ankh</code> exposes a <code>deferrable</code> method that accepts the <code>key</code> of the service<br />you want to make deferrable and an (optional) key to name the resulting component. If you don&#39;t<br />provide a name, it will use <code>{serviceName}Deferred</code> by convention. Behind the scenes<br /><code>ankh</code> is merely putting the service behind a function closure and forwarding arguments<br />to defer it&#39;s construction on-demand.</p><pre><code class="lang-js">
+Settings.inject = [&#39;localStorage&#39;]
+function Settings(cache) {
+
+}
+ankh.factory(&#39;settings&#39;,Settings)
+ankh.deferrable(&#39;settings&#39;)
+
+Login.inject = [&#39;settingsDeferred&#39;] //the special sauce
+function Login(settingsDeferred) {
+    return {
+        localCache: {}
+        , signin: function() {
+            //settingsDeferred is a function
+            //you can even provide your own overrides
+            return settingsDeferred({ cache: this.localCache })
+                .then(function(settings) {
+                    //do stuff with new instance
+                })
+
+        }
+    }
+}
+</code></pre>
+<h3>Validating the container for acyclic dependencies (experimental)</h3>
+<p><code>ankh</code> tries hard to tell you if the container has cyclic dependencies.<br />Decorators <em>can</em> be difficult to detect this.</p><pre><code class="lang-js">
+try {
+    var graph  = ankh.validate() // if OK then an array of execution order is returned
+} catch(err) {
+    //otherwise an error is throw trying to identify failure
+}
+</code></pre>
+<h2>Docs</h2>
+<p>Run <code>make docs</code> to see pretty documentation</p><h2>Tests</h2>
+<p><code>ankh</code> uses <a href="http://karma-runner.github.io/0.12/index.html">karma</a>.<br />You can <code>make test</code> to runem.</p><h4>Thanks and Inspirations</h4>
+<p>The work here is heavily influenced from the IoC concepts found in Castle Project&#39;s<br /><a href="https://github.com/castleproject/Windsor">Windsor Inversion of Control Container</a>.</p><p>The success of <a href="https://angularjs.org/">Angular</a> demonstrated for me that this is one of those patterns that<br />belongs in dynamic language world just as much as it does in static lang.</p></section>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with <a href="https://github.com/FGRibreau/doxx">Doxx </a> created by <a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau </a></p>
+        <p>Doxx is sponsored by <a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr </a> and <a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="http://platform.twitter.com/widgets.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="http://leaverou.github.com/prefixfree/prefixfree.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-transition.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-dropdown.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-collapse.js"></script>
+    <script src="http://getbootstrap.com/2.3.2/assets/js/bootstrap-affix.js"></script>
+    <script>
+      /**
+       * Prism: Lightweight, robust, elegant syntax highlighting
+       * MIT license http://www.opensource.org/licenses/mit-license.php/
+       * @author Lea Verou http://lea.verou.me
+       */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data));l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r){return n.stringify(t.tokenize(e,r))},tokenize:function(e,n){var r=t.Token,i=[e],s=n.rest;if(s){for(var o in s)n[o]=s[o];delete n.rest}e:for(var o in n){if(!n.hasOwnProperty(o)||!n[o])continue;var u=n[o],a=u.inside,f=!!u.lookbehind||0;u=u.pattern||u;for(var l=0;l<i.length;l++){var c=i[l];if(i.length>e.length)break e;if(c instanceof r)continue;u.lastIndex=0;var h=u.exec(c);if(h){f&&(f=h[1].length);var p=h.index-1+f,h=h[0].slice(f),d=h.length,v=p+d,m=c.slice(0,p+1),g=c.slice(v+1),y=[l,1];m&&y.push(m);var b=new r(o,a?t.tokenize(h,a):h);y.push(b);g&&y.push(g);Array.prototype.splice.apply(i,y)}}}return i},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]"){for(var r=0;r<e.length;r++)e[r]=n.stringify(e[r]);return e.join("")}var i={type:e.type,content:n.stringify(e.content),tag:"span",classes:["token",e.type],attributes:{}};i.type=="comment"&&(i.attributes.spellcheck="true");t.hooks.run("wrap",i);var s="";for(var o in i.attributes)s+=o+'="'+(i.attributes[o]||"")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'" '+s+">"+i.content+"</"+i.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+      Prism.languages.markup={comment:/&lt;!--[\w\W]*?--(&gt;|&gt;)/g,prolog:/&lt;\?.+?\?&gt;/,doctype:/&lt;!DOCTYPE.+?&gt;/,cdata:/&lt;!\[CDATA\[[\w\W]+?]]&gt;/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?&gt;/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|&gt;|"/g}},punctuation:/\/?&gt;/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+      Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:/@[\w-]+?(\s+[^;{]+)?(?=\s*{|\s*;)/gi,url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\}]*(?=\s*\{)/g,property:/(\b|\B)[a-z-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+      Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,number:/\b-?(0x)?\d*\.?[\da-f]+\b/g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+      Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b(-?(0x)?\d*\.?[\da-f]+|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+      
+    </script>
+    <!-- App js-->
+    <script>
+      $(function(){
+        var $window = $(window);
+        $('.scrollspy .nav').affix({
+          offset: {
+            top: function () { return $window.width() <= 980 ? 480 : 400 }
+          , bottom: 50
+          }
+        });
+      })
+    </script>
+  </body>
+</html>
