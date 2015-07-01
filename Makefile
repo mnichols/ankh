@@ -33,7 +33,10 @@ examples: build
 docs:
 	./node_modules/.bin/doxx --title Ankh --source lib --target docs
 
+publish: docs
+	./node_modules/.bin/gh-pages -d docs
+
 view-docs: docs
 	pushd ./docs; python -m SimpleHTTPServer 3000; popd
 
-.PHONY: test ci build verbose silent docs examples view-docs
+.PHONY: test ci build verbose silent docs examples view-docs publish

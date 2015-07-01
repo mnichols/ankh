@@ -23,6 +23,7 @@
     "chai": "^1.10.0",
     "chai-as-promised": "^4.1.1",
     "doxx": "^1.4.0",
+    "gh-pages": "^0.3.1",
     "glob": "~4.0.4",
     "gulp": "~3.8.6",
     "gulp-load-plugins": "~0.5.3",
