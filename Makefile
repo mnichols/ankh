@@ -31,6 +31,9 @@ examples: build
 	pushd ./examples; python -m SimpleHTTPServer 8001; popd
 
 docs:
-	./node_modules/.bin/doxx --source lib --target docs
+	./node_modules/.bin/doxx --title Ankh --source lib --target docs
 
-.PHONY: test ci build verbose silent docs examples
+view-docs: docs
+	pushd ./docs; python -m SimpleHTTPServer 3000; popd
+
+.PHONY: test ci build verbose silent docs examples view-docs
