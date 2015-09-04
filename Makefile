@@ -26,7 +26,7 @@ clean:
 node_modules: package.json
 	npm install --quiet
 
-examples: build
+examples: dist
 	cp -r ./build/* ./examples/
 	pushd ./examples; python -m SimpleHTTPServer 8001; popd
 
