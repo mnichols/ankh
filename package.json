@@ -1,6 +1,6 @@
 {
   "name": "ankh",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Dependency Injection for JS",
   "main": "index.js",
   "directories": {
